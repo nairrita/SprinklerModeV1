@@ -56,7 +56,7 @@ rope7.scale = 0.5
 
 function draw() {
     background(bg)
-    if(mousePressedOver(rope)){
+    if(keyDown('r')){
       rope_clicked_times += 1;
       click(rope_clicked_times)
     }
@@ -64,7 +64,7 @@ function draw() {
     drawSprites()
     text("X " + World.mouseX + "Y " + World.mouseY, World.mouseX,World.mouseY);
     textSize(20)
-    text("click on the rope", 49,87)
+    text("Press R to measure the distance  with the rope", 49,87)
     text("rope length 10 units",38,30)
    
     
