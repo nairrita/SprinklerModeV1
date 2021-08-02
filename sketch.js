@@ -77,29 +77,29 @@ function draw() {
   
   function click(x){
     
-    if(x==2){
+    if(x==1){
       rope1.visible = true;
     }
     if(x==4){
       rope2.visible = true
     }
     
-    if(x==6){
+    if(x==8){
       rope3.visible = true
     }
     
-     if(x==8){
+     if(x==12){
       rope4.visible = true
     }
     
-    if(x==10){
+    if(x==16){
       rope5.visible = true
     }
     
-    if(x==12){
+    if(x==20){
       rope6.visible = true
     }
-    if(x==14){
+    if(x==24){
       rope7.visible = true
     }
 
