@@ -1,10 +1,10 @@
 var bg;
-var ropeImg,rope45Img,iceStupaImg
-var iceStupa 
-var rope_clicked_times 
+var ropeImg,rope45Img,iceStupaImg;
+var iceStupa; 
+var rope_clicked_times; 
 var rope;
 var rope1,rope2,rope3,rope4,rope5;
-
+var divBox;
 
 function preload() {
     bg = loadImage('sprites/source.png') 
@@ -52,6 +52,10 @@ rope7 = createSprite(280,390,10,10)
 rope7.visible = false
 rope7.addImage(ropeImg)
 rope7.scale = 0.5       
+divBox = createP('');
+divBox.style('font-size', '16px');
+divBox.position(1000, 500);
+
 }
 
 function draw() {
@@ -73,30 +77,33 @@ function draw() {
   
   function click(x){
     
-    if(x==1){
-      rope1.visible = true
-    }
     if(x==2){
+      rope1.visible = true;
+    }
+    if(x==4){
       rope2.visible = true
     }
     
-    if(x==3){
+    if(x==6){
       rope3.visible = true
     }
     
-     if(x==4){
+     if(x==8){
       rope4.visible = true
     }
     
-    if(x==5){
+    if(x==10){
       rope5.visible = true
     }
     
-    if(x==6){
+    if(x==12){
       rope6.visible = true
     }
-    if(x==7){
+    if(x==14){
       rope7.visible = true
     }
+
+    if(x%2 == 0 && x <= 14)
+      divBox.html(x/2 + " Number of ropes  ");
      
   }
