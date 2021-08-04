@@ -19,7 +19,7 @@ function preload(){
 
 function setup(){
   mode = 0;
-  createCanvas(2000,1200)
+  createCanvas(2000,1000)
   iceStupa = createSprite(600,600,100,400)
   iceStupa.visible =  false;
   cone1 = createSprite(600,600,100,100)
