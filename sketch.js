@@ -12,7 +12,7 @@ var tapeDiagram,tapeDiagramImg
 
 function preload(){
   iceStupaImg=loadImage('images/1fr.png')
-  bg = loadImage('images/iceStupa2.png')
+  bg = loadImage('images/IceStupa2.png')
   cone1Img = loadImage('images/cone1.png')
   cone3Img = loadImage('images/cone3.png')
 }
