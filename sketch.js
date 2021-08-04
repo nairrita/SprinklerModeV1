@@ -1,118 +1,137 @@
+var iceStupa,iceStupaImg;
+var cone1,cone1Img;
+var cone2,cone2Img;
+var cone3,cone3Img;
 var bg;
-var ropeImg,rope45Img,iceStupaImg;
-var iceStupa; 
-var rope_clicked_times; 
-var rope;
-var rope1,rope2,rope3,rope4,rope5;
-var divBox;
+var mode ;
+var gameState = "noShow"
+var title1;
+var title2;
+var reset;
+var tapeDiagram,tapeDiagramImg
 
-function preload() {
-    bg = loadImage('sprites/source.png') 
-    ropeImg = loadImage('sprites/ropefinal.png')
-    rope45Img = loadImage('sprites/45r.png')
-    iceStupaImg = loadImage('sprites/ice.png')
- }
-
+function preload(){
+  iceStupaImg=loadImage('images/1fr.png')
+  bg = loadImage('images/iceStupa2.png')
+  cone1Img = loadImage('images/cone1.png')
+  cone3Img = loadImage('images/cone3.png')
+}
 
 function setup(){
-    createCanvas(1200,600);
+  mode = 0;
+  createCanvas(2000,1200)
+  iceStupa = createSprite(600,600,100,400)
+  iceStupa.visible =  false;
+  cone1 = createSprite(600,600,100,100)
+  cone1.addImage('c1',cone1Img)
+  cone1.scale = 2;
+  cone3 = createSprite(1200,550,100,100);
+  cone3.addImage('c3', cone3Img);
+  cone3.scale = 2
+  input1 = createInput("").attribute("placeholder", "Enter height of pipe");
+  input1.position(500, 700);
+  input1.size(150, 30);
+  input2 = createInput("").attribute("placeholder", "Enter height of pipe");
+  input2.position(1000,750);
+  input2.size(150, 30);
 
-iceStupa = createSprite(105,305,10,10);
-iceStupa.addImage("a",iceStupaImg)
-iceStupa.scale = 3
-rope_clicked_times = 0
-rope = createSprite(200,50,50,50)
-rope.addImage('b',ropeImg)
-rope.scale = 0.25
-rope1 = createSprite(857,135,10,10)
-rope1.visible = false
-rope1.addImage(rope45Img)
-rope1.scale = 0.25
-rope2 = createSprite(738,850,10,10)
-rope2.visible = false
-rope2.addImage(rope45Img)
-rope2.scale = 0.25
-rope3 = createSprite(768,258,10,10)
-rope3.visible = false
-rope3.addImage(rope45Img)
-rope3.scale = 0.25
- rope4 = createSprite(680,341,10,10)
-rope4.visible = false
-rope4.addImage(rope45Img)
-rope4.scale = 0.25
-rope5 = createSprite(550,391,10,10)
-rope5.visible = false
-rope5.addImage(ropeImg)
-rope5.scale = 0.25
-rope6 = createSprite(415,390,10,10)
-rope6.visible = false
-rope6.addImage(ropeImg)
-rope6.scale = 0.25   
-rope7 = createSprite(280,390,10,10)
-rope7.visible = false
-rope7.addImage(ropeImg)
-rope7.scale = 0.25     
+  input3 = createInput("").attribute("placeholder", "     10 ");
+  input3.position(700,800);
+  input3.size(50,50)
 
+  input4 = createInput("").attribute("placeholder", "      ?")
+  input4.position(820,800);
+  input4.size(50,50)
+
+  input5 = createInput("").attribute("placeholder", "       60 ")
+  input5.position(920,800);
+  input5.size(50,50)
+  check = createButton("CHECK");
+  check.position(1000, 800);
+
+  reset = createButton("TRY AGAIN");
+  reset.position(500,400);
+  reset.hide()
+  title1 = createElement('h2')
+  title1.html("Let's adjust the height of the sprinkler to form the ice stupa");
+  title1.position(500, 100);
+
+  title2 = createElement('h4')
+  title2.html(" Equation");
+  title2.position(600, 800);
+
+  title3 = createElement('h4')
+  title3.html(" OOPS TRY AGAIN!!!");
+  title3.position(500, 500);
+  title3.hide()
 
 }
 
-function draw() {
-    background(bg)
-    if(keyWentDown('r')){
-      rope_clicked_times += 1;
-      click(rope_clicked_times);
-      if(rope_clicked_times >= 7){
-        // since at most 7 ropes can be made, no need to increment rope_clicked_times ..
-        // .. beyond that.
-        rope_clicked_times = 7;
-      }
+function draw(){
+   
+    background("pink");
+    textSize(40)
+    fill('black')
+    text(" + ",770,835)
+    text(" = ", 880,835)
+    answer = input4.value()
+   
+    check.mousePressed(answerCheck)
+
+    reset.mousePressed(startOver)
+   
+   
+    if(gameState== 'show'){
+      background(bg)
+      fill("white")
+     text('Awesome!! you have adjusted the sprinkler and created the Ice Stupa using the Tape Diagram ', 100,170)
+      //clear()
+      
+      input1.hide()
+      input2.hide()
+      input3.hide()
+      input4.hide()
+      input5.hide()
+      title1.hide()
+      title2.hide()
+      check.hide()
+      cone1.visble = false;
+      cone2.visible=false;
+      text.hide()
+      display() 
       
     }
-  
-    drawSprites()
-    text("X " + World.mouseX + "Y " + World.mouseY, World.mouseX,World.mouseY);
-    textSize(20);
-   // text("Press R to measure the distance  with the rope", 49,87);
-   // text("rope length 10 units",38,30);
-    
-    if(rope_clicked_times >= 1 ){
-      textStyle(BOLD);
-      textSize(25);
-      text(" Number of Ropes =  " + rope_clicked_times, 800, 500);
+
+     if(gameState == 'end'){
+      reset.show()
+      title3.show()
+       
     }
 
-
-  
-  }
-  
-  function click(x){
-    
-    if(x==1){
-      rope1.visible = true;
-    }
-    if(x==2){
-      rope2.visible = true
-    }
-    
-    if(x==3){
-      rope3.visible = true
-    }
-    
-     if(x==4){
-      rope4.visible = true
-    }
-    
-    if(x==5){
-      rope5.visible = true
-    }
-    
-    if(x==6){
-      rope6.visible = true
-    }
-    if(x==7){
-      rope7.visible = true
-    }
-
+    if(gameState== 'start'){
+      reset.hide()
+      title3.hide()
       
-     
-  }
+      
+    
+
+    }
+  
+  drawSprites()
+  
+}
+function answerCheck(){
+if(answer == 50 ){
+gameState = 'show'
+}
+else if(answer !== 50){
+  gameState = 'end'
+  
+}
+}
+
+function startOver(){
+gameState = 'start'
+}
+
+
